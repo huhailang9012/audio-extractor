@@ -1,10 +1,10 @@
 version: '2.2'
 services:
   v2a:
-    image: v2a:latest
+    image: ae:latest
     build:
       context: .
-    container_name: v2a
+    container_name: ae
     restart: always
     privileged: true
     ports:

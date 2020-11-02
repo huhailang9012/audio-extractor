@@ -1,4 +1,4 @@
-"""v2a URL Configuration
+"""ae URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from v2a import views
+from ae import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^index/', views.index)

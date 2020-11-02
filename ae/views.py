@@ -3,7 +3,7 @@ import os.path
 import configparser
 from django.shortcuts import render
 
-ini_path = r"/data/config/v2a.ini"
+ini_path = r"/data/config/ae.ini"
 cp = configparser.ConfigParser()
 cp.read(ini_path)
 video_dir = cp.get("dir","video_dir")
