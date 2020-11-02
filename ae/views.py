@@ -1,14 +1,15 @@
 import os
 import os.path
-import configparser
+# import configparser
 from django.shortcuts import render
 
-ini_path = r"/data/config/ae.ini"
-cp = configparser.ConfigParser()
-cp.read(ini_path)
-video_dir = cp.get("dir","video_dir")
-audio_dir = cp.get("dir","audio_dir")
-
+# ini_path = r"/data/config/ae.ini"
+# cp = configparser.ConfigParser()
+# cp.read(ini_path)
+# video_dir = cp.get("dir","video_dir")
+# audio_dir = cp.get("dir","audio_dir")
+video_dir="/data/files/videos"
+audio_dir="/data/files/audios"
 def index(request):
     videos = []
     get_path(video_dir, videos)
