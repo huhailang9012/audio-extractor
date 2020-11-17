@@ -1,15 +1,33 @@
 version: '2.2'
 services:
-  v2a:
-    image: ae:latest
+  db:
     build:
-      context: .
-    container_name: ae
+      context: docker/db
+      network: host
+    environment:
+      - POSTGRES_DB=audio_extracting
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    networks:
+      - db_network
+    ports:
+      - "5434:5432"
+  ae:
+    image: audio-extracting:latest
+    build:
+      context: docker/api
+    container_name: audio-extracting
     restart: always
     privileged: true
     ports:
-      - "8000:8000"
+      - "8002:8002"
+    depends_on:
+      - db
+    networks:
+      - db_network
     volumes:
-      - /home/huhailang/docker_data/logs:/data/logs
-      - /home/huhailang/docker_data/files:/data/files
-      - /home/huhailang/docker_data/config:/data/config
+      - E:/docker_data/logs:/data/logs
+      - E:/docker_data/files:/data/files
+      - E:/docker_data/config:/data/config
+networks:
+  db_network:
