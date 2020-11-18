@@ -1,24 +1,23 @@
 import os
 import os.path
-# import configparser
+from repository import select_by_md5, storage
+import hashlib
 
 
-# ini_path = r"/data/config/Audio-Extracting.ini"
-# cp = configparser.ConfigParser()
-# cp.read(ini_path)
-# video_dir = cp.get("dir","video_dir")
-# audio_dir = cp.get("dir","audio_dir")
-from storage import count_by_md5, storage
-
-audio_dir = "E:/docker_data/files/audios"
+audio_dir = "E:/docker_data/files/audios/"
 
 
-def extract(video_id: str, storage_path: str):
-
-    count = count_by_md5(video_id)
-    if count == 0:
-        audio_name, audio_extension, audio_path = convert_one(storage_path)
-        storage(audio_path, audio_name, audio_extension, video_id)
+def extract(video_id: str, local_video_path: str):
+    audio_name, audio_extension, local_audio_path = convert_one(local_video_path)
+    with open(local_audio_path, 'rb') as fp:
+        data = fp.read()
+    file_md5 = hashlib.md5(data).hexdigest()
+    audio = select_by_md5(file_md5)
+    if audio is None:
+        audio_id = storage(local_audio_path, audio_name, audio_extension, video_id)
+        return audio_id, local_audio_path
+    else:
+        return audio.id, audio.local_audio_path
 
 
 def convert_one(video) :
@@ -39,7 +38,6 @@ def convert_one(video) :
     cmd = ffmpeg_cmd.format(video, audio_path)
     os.system(cmd)
 
-    print('Successfully')
     return audio_name, audio_extension, audio_path
 
 
@@ -64,3 +62,6 @@ def convert_many(videos):
 
     print('End #################')
 
+
+if __name__ == '__main__':
+    print(extract('8b14b14b2599a5ddf04a4cfecbf850dc', 'E:/docker_data/files/videos/7b14b14b2599a5ddf04a4cfecbf850dc.mp4'))
