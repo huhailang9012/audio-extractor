@@ -1,7 +1,10 @@
+import json
 from datetime import datetime
 import uuid
 import hashlib
 from typing import Dict
+
+from audio import Audio
 from database_pool import PostgreSql
 
 
@@ -43,8 +46,19 @@ def select_by_ids(audio_ids: list):
     # sql语句 建表
     sql = """SELECT * FROM audios where id in %s;"""
     db = PostgreSql()
-    result = db.select_by_ids(sql, (tupVar,))
-    return result
+    results = db.select_by_ids(sql, (tupVar,))
+    audios = list()
+    for result in results:
+        audio_id = result['id']
+        audio_name = result['name']
+        audio_md5 = result['md5']
+        video_id = result['video_id']
+        local_audio_path = result['local_audio_path']
+        format = result['format']
+        date_created = result['date_created']
+        audio = Audio(audio_id,audio_name,audio_md5,video_id,local_audio_path,format,date_created)
+        audios.append(audio)
+    return audios
 
 
 def storage(local_audio_path: str, name: str, format: str, video_id: str):
@@ -64,7 +78,9 @@ def storage(local_audio_path: str, name: str, format: str, video_id: str):
 
 if __name__ == '__main__':
     audios = list()
-    audios.append('8b14b14b2599a5ddf04a4cfecbf850dc')
-    audios.append('64efae6ee4b18803b1d29c87a0cab675')
-    tupVar = tuple(audios)
-    print(select_by_md5('812b492616a209b8855efd9af617855d'))
+    audios.append('12780ecc293511eb8bae005056c00008')
+    audios.append('7b0de605293511ebb5f5005056c00008')
+    data = select_by_ids(audios)
+    # print(data)
+    result = json.dumps(data, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
+    print(result)

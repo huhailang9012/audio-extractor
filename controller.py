@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query
 import extractor as ex
 from repository import select_by_ids
 from typing import List
-
+import json
 app = FastAPI()
 
 
@@ -16,4 +16,5 @@ def audio_extract(video_id: str, local_video_path: str):
 @app.get("/audio/batch/query")
 def batch_query(audio_ids: List[str] = Query(None)):
     data = select_by_ids(audio_ids)
-    return {"success": True, "code": 0, "msg": "ok", "data": data}
+    result = json.dumps(data, default=lambda obj: obj.__dict__, sort_keys=False, indent=4)
+    return {"success": True, "code": 0, "msg": "ok", "data": result}
