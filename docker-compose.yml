@@ -1,10 +1,10 @@
 version: '3'
 services:
   ae:
-    image: audio-extracting:latest
+    image: extractor:latest
     build:
       context: .
-    container_name: audio-extracting
+    container_name: extractor
     restart: always
     privileged: true
     ports:
