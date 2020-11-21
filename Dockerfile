@@ -11,7 +11,6 @@ RUN apt-get -y --force-yes install yasm ffmpeg
 
 WORKDIR /code
 
-COPY docker/api /code/
 RUN cd /code
-CMD uvicorn controller:app --reload --port 8002 --host 0.0.0.0
+CMD uvicorn controller:app --reload --port 8000 --host 0.0.0.0
 
