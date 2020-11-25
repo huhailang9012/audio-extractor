@@ -1,6 +1,6 @@
 import os
 import os.path
-from repository import select_by_md5, storage
+from database.repository import select_by_md5, storage
 import hashlib
 
 audio_dir = "/data/files/audios/"

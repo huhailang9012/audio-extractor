@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Query
 import extractor as ex
-from repository import select_by_ids
+from database.repository import select_by_ids
 from typing import List
 import json
 app = FastAPI()

@@ -5,7 +5,7 @@ import hashlib
 from typing import Dict
 
 from audio import Audio
-from database_pool import PostgreSql
+from database.database_pool import PostgreSql
 
 
 def insert(id: str, name: str, format: str, md5: str, local_audio_path: str,
