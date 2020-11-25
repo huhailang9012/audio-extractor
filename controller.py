@@ -6,8 +6,9 @@ import json
 app = FastAPI()
 
 
-@app.post("/audio/extract")
+@app.get("/audio/extract")
 def audio_extract(video_id: str, local_video_path: str):
+    print('audio_extract')
     audio_id, local_audio_path = ex.extract(video_id, local_video_path)
     data = {'audio_id': audio_id, 'local_audio_path': local_audio_path}
     return {"success": True, "code": 0, "msg": "ok", "data": data}

@@ -1,16 +1,19 @@
 version: '3'
 services:
   ae:
-    image: audio-extracting:latest
+    image: extractor:latest
     build:
       context: .
-    container_name: audio-extracting
+    container_name: extractor
     restart: always
     privileged: true
     ports:
       - "8002:8000"
     volumes:
       - .:/code
-      - /home/snail/Project/docker_data/logs:/data/logs
-      - /home/snail/Project/docker_data/files:/data/files
-      - /home/snail/Project/docker_data/config:/data/config
+#      - /home/snail/Project/docker_data/logs:/data/logs
+#      - /home/snail/Project/docker_data/files:/data/files
+#      - /home/snail/Project/docker_data/config:/data/config
+      - E:/docker_data/logs:/data/logs
+      - E:/docker_data/files:/data/files
+      - E:/docker_data/config:/data/config
