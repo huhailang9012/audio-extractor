@@ -3,9 +3,8 @@ import os.path
 from repository import select_by_md5, storage
 import hashlib
 
-
-# audio_dir = "E:/docker_data/files/audios/"
 audio_dir = "/data/files/audios/"
+
 
 def extract(video_id: str, local_video_path: str):
     audio_name, audio_extension, local_audio_path = convert_one(local_video_path)
