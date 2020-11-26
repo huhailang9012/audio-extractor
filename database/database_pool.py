@@ -6,7 +6,7 @@ from psycopg2 import pool
 class PostgreSql:
     def __init__(self):
         try:
-            self.connectPool = pool.SimpleConnectionPool(2, 10, host="ar.com", port="5432",
+            self.connectPool = pool.SimpleConnectionPool(2, 10, host="postgres", port="5432",
                                                          user="postgres", password="123456",
                                                          database="audio_extracting", keepalives=1,
                                                          keepalives_idle=30, keepalives_interval=10,
